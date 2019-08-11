@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>To Do Practice</title>
+  </head>
+  <style>
+    #todo-item {
+      font-weight: 700;
+      font-size: 2em;
+    }
+  </style>
+  <body>
+    <!-- Title -->
+    <h1>My To Do's!</h1>
+
+    <!-- Input Form -->
+    <form id="myForm">
+      <span id="todo-item"
+        >To Do Item: <input id="to-do" type="text"/><input
+          id="add-to-do"
+          value="Add Item"
+          type="submit"
+      /></span>
+    </form>
+
+    <hr />
+
+    <!-- To-Do List -->
+    <div id="to-dos"></div>
+    <script>
+      // dom elements
+      const grabTodo = document.getElementById('add-to-do');
+      const toDoInput = document.getElementById('to-do');
+      const toDoDump = document.getElementById('to-dos');
+      const myForm = document.getElementById('myForm');
+      // to do counter
+      let toDoCounter = 0;
+
+      function addTodo(event) {
+        // stops the form from automatically submitting
+        event.preventDefault();
+
+        // 1. get the to-do value and store it
+        let toDoItem = toDoInput.value.trim();
+        // 2. create a new variable storing a <p> tag
+        let paraTag = document.createElement('p');
+        // 3. give new variable an ID where the number is equal to the todo Count
+        paraTag.setAttribute('id', `todo-${toDoCounter}`);
+        // 4. append the to-do value as text to the p element
+        paraTag.innerText = toDoItem;
+        // 5. Create a button with unique identifiers based on what number it is
+        let btn = document.createElement('button');
+        // 6. give the button a data attribute called data-to-do and a class called checkbox
+        btn.setAttribute('data', `${toDoCounter}`);
+        btn.setAttribute('class', 'checkbox');
+
+        // 7. append the letter x inside
+        btn.innerText = 'x';
+        // 8. append the button to the to do item
+        paraTag.append(btn);
+        // 9. add the button and the todoitem to the to-dos div
+        toDoDump.appendChild(paraTag);
+        // 10. clear the text box when done.
+        myForm.reset();
+        // 11. add to the to do count
+        toDoCounter++;
+      }
+
+      // create a click event on the dynamic content to remove the todo item when clicked
+      let toDoRemove = e => {
+        if (e.target.className === 'checkbox') {
+          // Get the number of the button from its data attribute and hold in a variable called  toDoNumber.
+          console.log(e.target.attributes[0].value);
+          let toDoNumber = e.target.attributes[0].value;
+          let removeToDoBtn = document.getElementById(`todo-${toDoNumber}`);
+          console.log(removeToDoBtn);
+          removeToDoBtn.remove();
+        } else {
+          return;
+        }
+      };
+
+      // eventListner
+      grabTodo.addEventListener('click', addTodo);
+      document.addEventListener('click', e => toDoRemove(e));
+    </script>
+  </body>
+</html>
