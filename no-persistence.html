@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sign-Up Today!</title>
+
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <br />
+
+      <!-- Jumbotron -->
+      <div class="jumbotron">
+        <h1 class="text-center">Sign-Up Today!</h1>
+      </div>
+
+      <div class="row">
+        <!-- Sign-Up Card-->
+        <div class="col-lg-6">
+          <div class="card card-default">
+            <div class="card-heading">
+              <h3 class="card-title">New Member Sign-Up</h3>
+            </div>
+            <div class="card-body">
+              <!-- Sign-up Form (note the various input "types")-->
+              <form role="form">
+                <div class="form-group row">
+                  <label for="name-input">Name:</label>
+                  <input class="form-control" id="name-input" type="text" />
+                </div>
+                <div class="form-group row">
+                  <label for="email-input">Email:</label>
+                  <input class="form-control" id="email-input" type="email" />
+                </div>
+                <div class="form-group row">
+                  <label for="age-input">Age:</label>
+                  <input class="form-control" id="age-input" type="number" />
+                </div>
+                <div class="form-group row">
+                  <label for="comment-input">How did you hear about us?</label>
+                  <textarea
+                    class="form-control"
+                    id="comment-input"
+                    rows="5"
+                  ></textarea>
+                </div>
+                <button class="btn btn-default" id="add-user" type="submit">
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Most Recent Member card -->
+        <div class="col-lg-6">
+          <div class="card card-default">
+            <div class="card-heading">
+              <h3 class="card-title">Most Recent Member</h3>
+            </div>
+            <div class="card-body" id="recent-member">
+              <h2 id="name-display">Jimmy John</h2>
+              <h4 id="email-display">Email: jimmy@john.edu</h4>
+              <h4 id="age-display">Age: 27</h4>
+              <p id="comment-display">
+                I'm signing up, because I want to spread sandwiches to the
+                world.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Script -->
+    <script>
+      // dom Elements
+      const subBtn = document.getElementById('add-user');
+      const nameInput = document.getElementById('name-input');
+      const emailInput = document.getElementById('email-input');
+      const ageInput = document.getElementById('age-input');
+      const commentInput = document.getElementById('comment-input');
+      // DOM - Most Recent Memember
+      const nameDis = document.getElementById('name-display');
+      const emailDis = document.getElementById('email-display');
+      const ageDis = document.getElementById('age-display');
+      const commentDis = document.getElementById('comment-display');
+
+      // Capture Button Click
+      function handleSubmit(e) {
+        e.preventDefault();
+        console.log(e);
+        // console.log(subBtn, nameInput, emailInput, ageInput, commentInput);
+
+        // Capture User Inputs and store them into variables
+        let nameVal = nameInput.value.trim();
+        let emailVal = emailInput.value.trim();
+        let ageVal = ageInput.value.trim();
+        let commentVal = commentInput.value.trim();
+        // console.log(nameVal, emailVal, ageVal, commentVal);
+
+        // Output all of the new information into the relevant HTML sections
+        nameDis.innerText = `${nameVal}`;
+        emailDis.innerText = `Email: ${emailVal}`;
+        ageDis.innerText = `Age: ${ageVal}`;
+        commentDis.innerText = `${commentVal}`;
+      }
+
+      subBtn.addEventListener('click', handleSubmit);
+    </script>
+  </body>
+</html>
