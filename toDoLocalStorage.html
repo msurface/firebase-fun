@@ -30,6 +30,62 @@
 
     <!-- To-Do List -->
     <div id="to-dos"></div>
-    <script></script>
+    <script>
+      // DOM Elements
+      const form = document.getElementById('myForm');
+      const toDoInput = document.getElementById('to-do');
+      const toDoSubmit = document.getElementById('add-to-do');
+      const toDoDump = document.getElementById('to-dos');
+      // storing local storeage
+      let list = localStorage.getItem('toDoAction');
+
+      // verifying an array
+      if (!Array.isArray(list)) {
+        list = [];
+      }
+
+      console.log(list);
+
+      function renderListItems() {
+        // remove current to do items
+        while (toDoDump.firstChild) {
+          toDoDump.removeChild(toDoDump.firstChild);
+        }
+
+        let insideList = localStorage.getItem('toDoAction');
+
+        if (!Array.isArray(insideList)) {
+          insideList = [];
+        }
+
+        // render insideList todos to the page
+        for (i = 0; i < insideList.length; i++) {
+          console.log(insideList[i]);
+          let para = document.createElement('p');
+          let btn = document.createElement('button');
+          btn.setAttribute('class', 'delete');
+          btn.setAttribute('data-index', i);
+          para.innerHTML = insideList[i];
+          btn.innerHTML = 'x';
+          para.append(btn);
+          toDoDump.appendChild(para);
+        }
+      }
+
+      // functions
+      function handleSubmit(e) {
+        e.preventDefault();
+        // console.log(e);
+        let inputVal = toDoInput.value.trim();
+
+        list.push(inputVal);
+        localStorage.setItem('toDoAction', inputVal);
+        form.reset();
+        renderListItems();
+      }
+
+      // event listeners
+      toDoSubmit.addEventListener('click', handleSubmit);
+    </script>
   </body>
 </html>
